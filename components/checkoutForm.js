@@ -14,6 +14,8 @@ function CheckoutForm() {
     stripe_id: "",
   });
   const [error, setError] = useState("");
+  const [stripeSuccess, setStripeSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
   const appContext = useContext(AppContext);
@@ -26,6 +28,7 @@ function CheckoutForm() {
   }
 
   async function submitOrder() {
+    setLoading(true);
     // event.preventDefault();
 
     // // Use elements.getElement to get a reference to the mounted Element.
@@ -49,25 +52,14 @@ function CheckoutForm() {
         token: token.token.id,
       }),
     });
-
+    setLoading(false);
     if (!response.ok) {
       setError(response.statusText);
-      console.log("SUCCESS");
+      console.log("ERROR");
+    } else {
+      setStripeSuccess(true);
+      console.log("Success");
     }
-
-    // OTHER stripe methods you can use depending on app
-    // // or createPaymentMethod - https://stripe.com/docs/js/payment_intents/create_payment_method
-    // stripe.createPaymentMethod({
-    //   type: "card",
-    //   card: cardElement,
-    // });
-
-    // // or confirmCardPayment - https://stripe.com/docs/js/payment_intents/confirm_card_payment
-    // stripe.confirmCardPayment(paymentIntentClientSecret, {
-    //   payment_method: {
-    //     card: cardElement,
-    //   },
-    // });
   }
 
   return (
@@ -91,7 +83,13 @@ function CheckoutForm() {
         </div>
       </FormGroup>
 
-      <CardSection data={data} stripeError={error} submitOrder={submitOrder} />
+      <CardSection
+        data={data}
+        loading={loading}
+        stripeError={error}
+        stripeSuccess={stripeSuccess}
+        submitOrder={submitOrder}
+      />
 
       <style jsx global>
         {`

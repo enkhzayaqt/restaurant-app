@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { gql, useQuery } from "@apollo/client";
 import { useState, useContext } from "react";
 import AppContext from "./context";
@@ -12,6 +11,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
+
 function Dishes({ restId }) {
   const [restaurantID, setRestaurantID] = useState();
   const { addItem } = useContext(AppContext);
@@ -34,8 +34,6 @@ function Dishes({ restId }) {
     }
   `;
 
-  const router = useRouter();
-
   const { loading, error, data } = useQuery(GET_RESTAURANT_DISHES, {
     variables: { id: restId },
   });
@@ -49,30 +47,44 @@ function Dishes({ restId }) {
   if (restId > 0) {
     return (
       <>
-        {restaurant.dishes.map((res) => (
-          <Col xs="6" sm="4" style={{ padding: 0 }} key={res.id}>
-            <Card style={{ margin: "0 10px" }}>
-              <CardImg
-                top={true}
-                style={{ height: 150, width: 150 }}
-                src={`http://23.22.215.140${res.image.url}`}
-              />
-              <CardBody>
-                <CardTitle>{res.name}</CardTitle>
-                <CardText>{res.description}</CardText>
-              </CardBody>
-              <div className="card-footer">
-                <Button color="info" onClick={() => addItem(res)}>
-                  + Add To Cart
-                </Button>
+        <div>
+          <div className="text-lg font-weight-bold my-2">Dishes:</div>
+          <div className="flex flex-row flex-wrap	">
+            {restaurant.dishes.map((res, idx) => (
+              <div className="w-1/2 px-2" key={idx}>
+                <Card style={{ margin: "0 10px" }}>
+                  <CardBody>
+                    <div className="flex">
+                      <div className="flex-grow-0 flex-shrink-0">
+                        <CardImg
+                          top={true}
+                          className="object-cover"
+                          style={{ height: 150, width: 130 }}
+                          src={`http://23.22.215.140${res.image.url}`}
+                        />
+                      </div>
+                      <div className="flex-grow-1 flex-shrink-1 px-3">
+                        <CardTitle>
+                          <div className="font-weight-bold">{res.name}</div>
+                        </CardTitle>
+                        <CardText>{res.description}</CardText>
+                      </div>
+                    </div>
+                  </CardBody>
+                  <div className="card-footer">
+                    <Button color="info" onClick={() => addItem(res)}>
+                      + Add To Cart
+                    </Button>
+                  </div>
+                </Card>
               </div>
-            </Card>
-          </Col>
-        ))}
+            ))}
+          </div>
+        </div>
       </>
     );
   } else {
-    return <h1> No Dishes</h1>;
+    return <div></div>;
   }
 }
 export default Dishes;

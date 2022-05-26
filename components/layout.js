@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Container, Nav, NavItem } from "reactstrap";
 
 const Layout = (props) => {
-  const title = "Welcome to Nextjs";
+  const title = "Good Restaurant";
   let user = "";
   if (typeof window !== "undefined") {
     user = window.localStorage.getItem("username");
@@ -47,28 +47,35 @@ const Layout = (props) => {
         <Nav className="navbar navbar-dark bg-dark">
           <NavItem>
             <Link href="/">
-              <a className="navbar-brand">Home</a>
+              <a className="navbar-brand">Restaurant App</a>
             </Link>
           </NavItem>
           <NavItem className="ml-auto">
             {!!user ? (
-              <h5>{user}</h5>
+              <h5 className="p-0 text-xl">{user}</h5>
             ) : (
               <Link href="/register">
-                <a className="nav-link"> Sign up</a>
+                <a className="nav-link bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-5">
+                  Sign up
+                </a>
               </Link>
             )}
           </NavItem>
           <NavItem>
             {!!user ? (
               <Link href="/">
-                <a className="nav-link" onClick={() => logout()}>
+                <a
+                  className="nav-link bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  onClick={() => logout()}
+                >
                   Logout
                 </a>
               </Link>
             ) : (
               <Link href="/login">
-                <a className="nav-link">Sign in</a>
+                <a className="nav-link bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                  Sign in
+                </a>
               </Link>
             )}
           </NavItem>

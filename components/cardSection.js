@@ -20,11 +20,16 @@ function CardSection(props) {
               </div>
               <br />
               <div className="order-button-wrapper">
-                <button onClick={props.submitOrder}>Confirm order</button>
+                <button
+                  onClick={props.submitOrder}
+                  style={{ width: 300 }}
+                  disabled={props.loading}
+                >
+                  {props.loading ? "Loading" : "Confirm order"}
+                </button>
               </div>
-              {props.stripeError ? (
-                <div>{props.stripeError.toString()}</div>
-              ) : null}
+              {props.stripeError && <div>{props.stripeError.toString()}</div>}
+              {props.stripeSuccess && "Successful"}
               <div id="card-errors" role="alert" />
             </div>
           </fieldset>

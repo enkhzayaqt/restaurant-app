@@ -19,6 +19,7 @@ function Login(props) {
   const [data, updateData] = useState({ identifier: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(false);
   const router = useRouter();
   const appContext = useContext(AppContext);
 
@@ -29,6 +30,7 @@ function Login(props) {
   }, []);
 
   function onChange(event) {
+    setErrorMsg(false);
     updateData({ ...data, [event.target.name]: event.target.value });
   }
 
@@ -37,8 +39,8 @@ function Login(props) {
       <Row>
         <Col sm="12" md={{ size: 5, offset: 3 }}>
           <div className="paper">
-            <div className="header">
-              <h1>Login</h1>
+            <div className="header flex justify-center	items-center">
+              <h1 className="text-3xl text-white ">Login</h1>
             </div>
             <section className="wrapper">
               {Object.entries(error).length !== 0 &&
@@ -74,13 +76,12 @@ function Login(props) {
                       style={{ height: 50, fontSize: "1.2em" }}
                     />
                   </FormGroup>
-
+                  {errorMsg && (
+                    <div className="text-danger">
+                      Password is incorrect. Please try again.
+                    </div>
+                  )}
                   <FormGroup>
-                    {/* <span>
-                      <a href="">
-                        <small>Forgot Password?</small>
-                      </a>
-                    </span> */}
                     <Button
                       style={{ float: "right", width: 120 }}
                       color="primary"
@@ -92,7 +93,8 @@ function Login(props) {
                             // set authed User in global context to update header/app state
                             appContext.setUser(res.data.user);
                           })
-                          .catch((error) => {
+                          .catch(async (error) => {
+                            setErrorMsg(true);
                             setError(error.response.data.message);
                             setLoading(false);
                           });

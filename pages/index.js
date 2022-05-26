@@ -20,10 +20,13 @@ function Home() {
   return (
     <ApolloProvider client={client}>
       <div className="search">
-        <h2> Local Restaurants</h2>
+        <h2 className="text-lg font-weight-bold my-2">
+          Search Local Restaurants:
+        </h2>
         <InputGroup>
           <InputGroupAddon addonType="append"> Search </InputGroupAddon>
           <Input
+            placeholder="Search restaurant..."
             onChange={(e) => setQuery(e.target.value.toLocaleLowerCase())}
             value={query}
           />
