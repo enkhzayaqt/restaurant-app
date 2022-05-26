@@ -55,7 +55,7 @@ function Dishes({ restId }) {
               <CardImg
                 top={true}
                 style={{ height: 150, width: 150 }}
-                src={`http://localhost:1337${res.image.url}`}
+                src={`http://23.22.215.140${res.image.url}`}
               />
               <CardBody>
                 <CardTitle>{res.name}</CardTitle>
