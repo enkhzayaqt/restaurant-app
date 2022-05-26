@@ -38,7 +38,7 @@ function Login(props) {
         <Col sm="12" md={{ size: 5, offset: 3 }}>
           <div className="paper">
             <div className="header">
-              <img src="http://23.22.215.140/uploads/5a60a9d26a764e7cba1099d8b157b5e9.png" />
+              <h1>Login</h1>
             </div>
             <section className="wrapper">
               {Object.entries(error).length !== 0 &&
@@ -76,11 +76,11 @@ function Login(props) {
                   </FormGroup>
 
                   <FormGroup>
-                    <span>
+                    {/* <span>
                       <a href="">
                         <small>Forgot Password?</small>
                       </a>
-                    </span>
+                    </span> */}
                     <Button
                       style={{ float: "right", width: 120 }}
                       color="primary"

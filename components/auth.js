@@ -38,13 +38,13 @@ export const login = (identifier, password) => {
     return;
   }
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {    
     axios
       .post(`${API_URL}/auth/local/`, { identifier, password })
       .then((res) => {
         //set token response from Strapi for server validation
         Cookie.set("token", res.data.jwt);
-
+        localStorage.setItem('username', res.data.user.username)
         //resolve the promise to set loading to false in SignUp form
         resolve(res);
         //redirect back to home page for restaurance selection

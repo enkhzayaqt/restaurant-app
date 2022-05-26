@@ -4,11 +4,20 @@ import React, { useContext } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { Container, Nav, NavItem } from "reactstrap";
-import AppContext from "./context";
 
 const Layout = (props) => {
-const title = "Welcome to Nextjs";
-const {user} = useContext(AppContext);
+  const title = "Welcome to Nextjs";
+  let user = "";
+  if (typeof window !== "undefined") {
+    user = window.localStorage.getItem("username");
+  }
+
+  const logout = () => {
+    if (typeof window !== "undefined") {
+      window.localStorage.clear();
+    }
+  };
+
   return (
     <div>
       <Head>
@@ -42,8 +51,8 @@ const {user} = useContext(AppContext);
             </Link>
           </NavItem>
           <NavItem className="ml-auto">
-            {user ? (
-              <h5>{user.username}</h5>
+            {!!user ? (
+              <h5>{user}</h5>
             ) : (
               <Link href="/register">
                 <a className="nav-link"> Sign up</a>
@@ -51,15 +60,9 @@ const {user} = useContext(AppContext);
             )}
           </NavItem>
           <NavItem>
-            {user ? (
+            {!!user ? (
               <Link href="/">
-                <a
-                  className="nav-link"
-                  onClick={() => {
-                    logout();
-                    setUser(null);
-                  }}
-                >
+                <a className="nav-link" onClick={() => logout()}>
                   Logout
                 </a>
               </Link>
