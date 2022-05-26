@@ -28,7 +28,6 @@ function CheckoutForm() {
   }
 
   async function submitOrder() {
-    setLoading(true);
     // event.preventDefault();
 
     // // Use elements.getElement to get a reference to the mounted Element.
@@ -52,13 +51,13 @@ function CheckoutForm() {
         token: token.token.id,
       }),
     });
-    setLoading(false);
     if (!response.ok) {
       setError(response.statusText);
       console.log("ERROR");
     } else {
       setStripeSuccess(true);
       console.log("Success");
+      window.location.href = "/";
     }
   }
 

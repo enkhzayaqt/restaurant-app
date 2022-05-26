@@ -76,7 +76,7 @@ function Cart() {
       <div>
         <Badge style={{ width: 200, padding: 10 }} color="light">
           <h5 style={{ fontWeight: 100, color: "gray" }}>Total:</h5>
-          <h3>${cart.total}</h3>
+          <h3>${cart.total.toFixed(2)}</h3>
         </Badge>
         <Link href="/checkout/">
           <Button style={{ width: "60%" }} color="primary">

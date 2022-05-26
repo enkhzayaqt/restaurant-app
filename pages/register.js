@@ -25,8 +25,8 @@ const Register = () => {
       <Row>
         <Col sm="12" md={{ size: 5, offset: 3 }}>
           <div className="paper">
-            <div className="header">
-              <h1>Sign up</h1>
+            <div className="header flex justify-center	items-center">
+              <h1 className="text-3xl text-white ">Sign up</h1>
             </div>
             <section className="wrapper">
               {Object.entries(error).length !== 0 &&
